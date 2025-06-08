@@ -1,4 +1,10 @@
 package com.loris.hw.domain.repository;
 
-public class UserRepository {
+import com.loris.hw.infra.mongo.UserDocument;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.Optional;
+
+public interface UserRepository extends MongoRepository<UserDocument, String> {
+    Optional<UserDocument> findByUsername(String username);
 }

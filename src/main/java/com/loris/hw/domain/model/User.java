@@ -1,4 +1,3 @@
 package com.loris.hw.domain.model;
 
-public class User {
-}
+public record User(String id, String username, String email, String passwordHash) {}
