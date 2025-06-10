@@ -1,9 +1,9 @@
 package com.loris.hw.adapter.web.dto.car;
 
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.codec.multipart.FilePart;
 
 public record CarCreateRequestDTO(
-        MultipartFile photo,
+        FilePart photo,
         String modelName,
         String series,
         String seriesNumber,
