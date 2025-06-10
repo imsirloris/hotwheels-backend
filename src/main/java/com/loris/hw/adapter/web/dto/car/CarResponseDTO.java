@@ -1,10 +1,12 @@
 package com.loris.hw.adapter.web.dto.car;
 
+import java.time.Year;
+
 public record CarResponseDTO(
         String id,
         String modelName,
         String series,
-        Integer seriesNumber,
+        String seriesNumber,
         Integer manufacturedYear,
         Integer purchaseYear,
         String batch,
