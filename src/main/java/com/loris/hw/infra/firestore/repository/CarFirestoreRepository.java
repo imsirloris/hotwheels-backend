@@ -3,6 +3,7 @@ package com.loris.hw.infra.firestore.repository;
 import com.loris.hw.adapter.web.mapper.CarMapper;
 import com.loris.hw.domain.port.repository.CarRepository;
 import com.loris.hw.infra.firestore.document.CarDocument;
+import com.loris.hw.infra.firestore.repository.internal.CarDocumentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
