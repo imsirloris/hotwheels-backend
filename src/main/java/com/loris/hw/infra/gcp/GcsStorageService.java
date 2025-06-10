@@ -48,4 +48,12 @@ public class GcsStorageService implements StoragePort {
         }).subscribeOn(Schedulers.boundedElastic()));
     }
 
+    @Override
+    public Mono<Void> delete(String targetName) {
+        return Mono.fromRunnable(() -> {
+            BlobId blobId = BlobId.of(bucket, targetName);
+            storage.delete(blobId);
+        }).subscribeOn(Schedulers.boundedElastic()).then();
+    }
+
 }

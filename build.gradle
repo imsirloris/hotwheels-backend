@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.google.cloud:spring-cloud-gcp-starter-data-firestore'
     implementation 'com.google.cloud:spring-cloud-gcp-starter-storage'
     implementation 'com.google.cloud:google-cloud-firestore:3.31.6'
+//    implementation 'com.google.firebase:firebase-admin:9.5.0'
 
     implementation "org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.8"
 

@@ -5,6 +5,7 @@ import org.springframework.http.codec.multipart.FilePart;
 public record CarCreateRequestDTO(
         FilePart photo,
         String modelName,
+        String color,
         String series,
         String seriesNumber,
         Integer manufacturedYear,
