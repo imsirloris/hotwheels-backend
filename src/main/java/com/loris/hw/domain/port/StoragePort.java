@@ -5,4 +5,6 @@ import reactor.core.publisher.Mono;
 
 public interface StoragePort {
     Mono<String> upload(FilePart filePart, String targetName);
+
+     Mono<Void> delete(String targetName);
 }

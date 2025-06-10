@@ -5,6 +5,7 @@ public record Car(
         String modelName,
         String series,
         String seriesNumber,
+        String color,
         Integer manufacturedYear,
         Integer purchaseYear,
         String batch,

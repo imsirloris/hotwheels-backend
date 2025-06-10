@@ -6,12 +6,14 @@ import lombok.Data;
 
 @Document(collectionName = "cars")
 @Data
+
 public class CarDocument {
     @DocumentId
     private String id;
     private String modelName;
     private String series;
     private String seriesNumber;
+    private String color;
     private Integer manufacturedYear;
     private Integer purchaseYear;
     private String batch;
