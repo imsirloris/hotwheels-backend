@@ -2,6 +2,7 @@ package com.loris.hw.adapter.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loris.hw.adapter.web.dto.car.CarCreateRequestDTO;
+import com.loris.hw.adapter.web.dto.car.CarPageResponseDTO;
 import com.loris.hw.adapter.web.dto.car.CarResponseDTO;
 import com.loris.hw.application.service.CarService;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +63,14 @@ public class CarController {
         return carService.findById(carId)
                 .map(car -> ResponseEntity.ok().body(car))
                 .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<ResponseEntity<CarPageResponseDTO>> findAll(
+            @RequestParam(defaultValue = "20") int limit,
+            @RequestParam(required = false) String lastDocumentId) {
+        return carService.findAllPaginated(limit, lastDocumentId)
+                .map(page -> ResponseEntity.ok().body(page));
     }
 
     @DeleteMapping(path = "/{carId}")

@@ -11,5 +11,7 @@ public interface CarRepository {
 
     Flux<CarDocument> findByOwnerId(String ownerId);
 
+    Flux<CarDocument> findAll(int limit, String lastDocumentId);
+
     Mono<Void> deleteById(String id);
 }

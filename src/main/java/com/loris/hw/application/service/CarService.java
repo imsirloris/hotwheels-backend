@@ -1,6 +1,7 @@
 package com.loris.hw.application.service;
 
 import com.loris.hw.adapter.web.dto.car.CarCreateRequestDTO;
+import com.loris.hw.adapter.web.dto.car.CarPageResponseDTO;
 import com.loris.hw.adapter.web.dto.car.CarResponseDTO;
 import com.loris.hw.adapter.web.mapper.CarMapper;
 import com.loris.hw.domain.port.StoragePort;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -45,7 +47,6 @@ public class CarService {
                 .map(mapper::toResponseDto);
     }
 
-    //update
     @Transactional
     public Mono<CarResponseDTO> update(
             String carId,
@@ -85,6 +86,25 @@ public class CarService {
         return carRepository.findById(carId)
                 .map(mapper::toResponseDto)
                 .switchIfEmpty(Mono.error(new IllegalArgumentException("Car not found")));
+    }
+
+    @Transactional(readOnly = true)
+    public Mono<CarPageResponseDTO> findAllPaginated(int limit, String lastDocumentId) {
+        return carRepository.findAll(limit + 1, lastDocumentId)
+                .map(mapper::toResponseDto)
+                .collectList()
+                .map(list -> {
+                    boolean hasMore = list.size() > limit;
+                    List<CarResponseDTO> content = hasMore ? list.subList(0, limit) : list;
+                    String lastId = !content.isEmpty() ? content.get(content.size() - 1).id() : null;
+
+                    return new CarPageResponseDTO(
+                            content,
+                            content.size(),
+                            lastId,
+                            hasMore
+                    );
+                });
     }
 
     @Transactional

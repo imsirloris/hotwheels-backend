@@ -32,6 +32,22 @@ public class CarFirestoreRepository implements CarRepository {
     }
 
     @Override
+    public Flux<CarDocument> findAll(int limit, String lastDocumentId) {
+        if (lastDocumentId == null || lastDocumentId.isEmpty()) {
+            return firestore.findAll().take(limit);
+        }
+
+        return firestore.findById(lastDocumentId)
+                .flatMapMany(lastDocument ->
+                        firestore.findAll()
+                                .skipUntil(doc -> doc.getId().equals(lastDocument.getId()))
+                                .skip(1)
+                                .take(limit)
+                )
+                .switchIfEmpty(firestore.findAll().take(limit));
+    }
+
+    @Override
     public Mono<Void> deleteById(String id) {
         return firestore.deleteById(id);
     }
