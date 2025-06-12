@@ -1,7 +1,6 @@
 package com.loris.hw.adapter.web.mapper;
 
 import com.loris.hw.adapter.web.dto.car.CarCreateRequestDTO;
-import com.loris.hw.adapter.web.dto.car.CarCreateUpdateDTO;
 import com.loris.hw.adapter.web.dto.car.CarResponseDTO;
 import com.loris.hw.domain.model.Car;
 import com.loris.hw.infra.firestore.document.CarDocument;
@@ -21,6 +20,6 @@ public interface CarMapper {
 
     CarResponseDTO toResponseDto(CarDocument doc);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateDocumentFromDto(CarCreateUpdateDTO dto, @MappingTarget CarDocument targer);
+//    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+//    void updateDocumentFromDto(CarCreateUpdateDTO dto, @MappingTarget CarDocument targer);
 }
