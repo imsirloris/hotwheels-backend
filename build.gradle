@@ -28,6 +28,7 @@ dependencyManagement {
 ext {
     set('mapstructVersion', '1.6.3')
     set('lombokVersion', '1.18.38')
+    set('awsSdkVersion', '2.31.76')
 }
 
 dependencies {
@@ -36,10 +37,15 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
-    implementation 'com.google.cloud:spring-cloud-gcp-starter-data-firestore'
-    implementation 'com.google.cloud:spring-cloud-gcp-starter-storage'
-    implementation 'com.google.cloud:google-cloud-firestore:3.31.6'
-//    implementation 'com.google.firebase:firebase-admin:9.5.0'
+//    implementation 'com.google.cloud:spring-cloud-gcp-starter-data-firestore'
+//    implementation 'com.google.cloud:spring-cloud-gcp-starter-storage'
+//    implementation 'com.google.cloud:google-cloud-firestore:3.31.6'
+////    implementation 'com.google.firebase:firebase-admin:9.5.0'
+
+    implementation platform("software.amazon.awssdk:bom:${awsSdkVersion}")
+    implementation "software.amazon.awssdk:dynamodb"
+    implementation "software.amazon.awssdk:dynamodb-enhanced"
+    implementation "software.amazon.awssdk:auth"
 
     implementation "org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.8"
 
@@ -54,6 +60,9 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
+
+    testImplementation 'com.amazonaws:DynamoDBLocal:2.6.1'
+
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

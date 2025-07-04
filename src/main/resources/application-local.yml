@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: HotWheelsCollection
+  profiles:
+    active: local
+
+server:
+  port: ${PORT:8080}
+
+aws:
+  region: ${AWS_REGION:us-east-1}
+  dynamodb:
+    endpoint: http://localhost:8000
+    table-name: ${DYNAMODB_TABLE_NAME}
