@@ -1,12 +1,15 @@
 package com.loris.hw.infra.dynamodb.config;
 
 import com.loris.hw.infra.dynamodb.converter.MainTableKeyConverter;
+import com.loris.hw.infra.dynamodb.model.Car;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
@@ -47,6 +50,11 @@ public class DynamoDbConfig {
     @Bean
     MainTableKeyConverter keyConverter() {
         return new MainTableKeyConverter();
+    }
+
+    @Bean
+    DynamoDbTable<Car> carTable(DynamoDbEnhancedClient enhancedClient) {
+        return enhancedClient.table(props.dynamodb().tableName(), TableSchema.fromBean(Car.class));
     }
 
     @ConfigurationProperties("aws")
