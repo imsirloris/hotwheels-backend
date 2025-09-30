@@ -1,9 +1,11 @@
 package com.loris.hw.domain.port.repository;
 
-import com.loris.hw.infra.firestore.document.UserDocument;
+import com.loris.hw.infra.dynamodb.document.UserDocument;
+
 import reactor.core.publisher.Mono;
 
-public interface UserRepository{
+public interface UserRepository {
     Mono<UserDocument> findById(String id);
+
     Mono<UserDocument> save(UserDocument user);
 }

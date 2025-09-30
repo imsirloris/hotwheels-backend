@@ -1,8 +1,12 @@
 spring:
   application:
     name: HotWheelsCollection
-  profiles:
-    active: local
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER_URI:http://localhost:8080/auth/realms/hotwheels}
+          jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/auth/realms/hotwheels/protocol/openid_connect/certs}
 
 server:
   port: ${PORT:8080}
@@ -11,4 +15,4 @@ aws:
   region: ${AWS_REGION:us-east-1}
   dynamodb:
     endpoint: http://localhost:8000
-    table-name: ${DYNAMODB_TABLE_NAME}
+    table-name: ${DYNAMODB_TABLE_NAME:hot-wheels-collection}

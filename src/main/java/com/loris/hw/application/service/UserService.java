@@ -1,14 +1,16 @@
 package com.loris.hw.application.service;
 
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.stereotype.Service;
+
 import com.loris.hw.adapter.web.dto.user.UserResponseDTO;
 import com.loris.hw.adapter.web.dto.user.UserUpdateRequestDTO;
 import com.loris.hw.adapter.web.mapper.UserMapper;
 import com.loris.hw.domain.model.User;
 import com.loris.hw.domain.port.repository.UserRepository;
-import com.loris.hw.infra.firestore.document.UserDocument;
+import com.loris.hw.infra.dynamodb.document.UserDocument;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -37,7 +39,6 @@ public class UserService {
                 .map(mapper::toDto);
     }
 
-
     private Mono<UserDocument> createFromJwt(Jwt jwt) {
         User newUser = mapper.jwtToDomain(jwt);
         UserDocument doc = mapper.toDocument(newUser);
@@ -49,8 +50,7 @@ public class UserService {
         User merged = new User(
                 current.id(),
                 dto.username() != null ? dto.username() : current.username(),
-                dto.email() != null ? dto.email() : current.email()
-        );
+                dto.email() != null ? dto.email() : current.email());
 
         return repo.save(mapper.toDocument(merged));
     }

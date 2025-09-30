@@ -1,6 +1,7 @@
 package com.loris.hw.domain.port.repository;
 
-import com.loris.hw.infra.firestore.document.CarDocument;
+import com.loris.hw.infra.dynamodb.document.CarDocument;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

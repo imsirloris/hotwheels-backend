@@ -36,18 +36,14 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-
-//    implementation 'com.google.cloud:spring-cloud-gcp-starter-data-firestore'
-//    implementation 'com.google.cloud:spring-cloud-gcp-starter-storage'
-//    implementation 'com.google.cloud:google-cloud-firestore:3.31.6'
-////    implementation 'com.google.firebase:firebase-admin:9.5.0'
+    implementation 'org.springframework:spring-tx'
 
     implementation platform("software.amazon.awssdk:bom:${awsSdkVersion}")
     implementation "software.amazon.awssdk:dynamodb"
     implementation "software.amazon.awssdk:dynamodb-enhanced"
     implementation "software.amazon.awssdk:auth"
 
-    implementation "org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.8"
+    implementation "org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.11"
 
     implementation 'me.paulschwarz:spring-dotenv:4.0.0'
 

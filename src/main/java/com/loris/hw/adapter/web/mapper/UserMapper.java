@@ -1,21 +1,22 @@
 package com.loris.hw.adapter.web.mapper;
 
-import com.loris.hw.adapter.web.dto.user.UserResponseDTO;
-import com.loris.hw.domain.model.User;
-import com.loris.hw.infra.firestore.document.UserDocument;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import com.loris.hw.adapter.web.dto.user.UserResponseDTO;
+import com.loris.hw.domain.model.User;
+import com.loris.hw.infra.dynamodb.document.UserDocument;
 
-@Mapper(componentModel = "spring",
-        injectionStrategy = InjectionStrategy.CONSTRUCTOR,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface UserMapper {
 
     UserResponseDTO toDto(User user);
 
+    @Mapping(target = "pk", ignore = true)
+    @Mapping(target = "sk", ignore = true)
+    @Mapping(target = "type", ignore = true)
     UserDocument toDocument(User user);
 
     User toDomain(UserDocument doc);

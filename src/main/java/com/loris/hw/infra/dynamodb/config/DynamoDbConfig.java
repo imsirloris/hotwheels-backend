@@ -1,19 +1,22 @@
 package com.loris.hw.infra.dynamodb.config;
 
-import com.loris.hw.infra.dynamodb.converter.MainTableKeyConverter;
-import com.loris.hw.infra.dynamodb.model.Car;
+import java.net.URI;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.loris.hw.infra.dynamodb.converter.MainTableKeyConverter;
+import com.loris.hw.infra.dynamodb.document.CarDocument;
+import com.loris.hw.infra.dynamodb.document.UserDocument;
+
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-
-import java.net.URI;
 
 @Configuration
 @EnableConfigurationProperties(DynamoDbConfig.DynamoDbConfigProperties.class)
@@ -32,7 +35,7 @@ public class DynamoDbConfig {
                 .endpointOverride(props.dynamodb().endpoint() != null
                         ? URI.create(props.dynamodb().endpoint())
                         : null)
-                .credentialsProvider(DefaultCredentialsProvider.create())
+                .credentialsProvider(DefaultCredentialsProvider.builder().build())
                 .build();
     }
 
@@ -53,8 +56,13 @@ public class DynamoDbConfig {
     }
 
     @Bean
-    DynamoDbTable<Car> carTable(DynamoDbEnhancedClient enhancedClient) {
-        return enhancedClient.table(props.dynamodb().tableName(), TableSchema.fromBean(Car.class));
+    DynamoDbTable<CarDocument> carTable(DynamoDbEnhancedClient enhancedClient) {
+        return enhancedClient.table(props.dynamodb().tableName(), TableSchema.fromBean(CarDocument.class));
+    }
+
+    @Bean
+    DynamoDbTable<UserDocument> userTable(DynamoDbEnhancedClient enhancedClient) {
+        return enhancedClient.table(props.dynamodb().tableName(), TableSchema.fromBean(UserDocument.class));
     }
 
     @ConfigurationProperties("aws")

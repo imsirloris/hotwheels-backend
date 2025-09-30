@@ -1,17 +1,22 @@
 package com.loris.hw.adapter.web.mapper;
 
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+
 import com.loris.hw.adapter.web.dto.car.CarCreateRequestDTO;
 import com.loris.hw.adapter.web.dto.car.CarResponseDTO;
 import com.loris.hw.domain.model.Car;
-import com.loris.hw.infra.firestore.document.CarDocument;
-import org.mapstruct.*;
+import com.loris.hw.infra.dynamodb.document.CarDocument;
 
-@Mapper(componentModel = "spring",
-        injectionStrategy = InjectionStrategy.CONSTRUCTOR,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface CarMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "pk", ignore = true)
+    @Mapping(target = "sk", ignore = true)
+    @Mapping(target = "type", ignore = true)
     @Mapping(target = "ownerId", source = "ownerId")
     @Mapping(target = "photoUrl", source = "photoUrl")
     CarDocument toDocument(CarCreateRequestDTO dto, String ownerId, String photoUrl);
@@ -20,6 +25,8 @@ public interface CarMapper {
 
     CarResponseDTO toResponseDto(CarDocument doc);
 
-//    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-//    void updateDocumentFromDto(CarCreateUpdateDTO dto, @MappingTarget CarDocument targer);
+    // @BeanMapping(nullValuePropertyMappingStrategy =
+    // NullValuePropertyMappingStrategy.IGNORE)
+    // void updateDocumentFromDto(CarCreateUpdateDTO dto, @MappingTarget CarDocument
+    // targer);
 }
